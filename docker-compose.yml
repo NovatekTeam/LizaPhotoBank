@@ -8,7 +8,8 @@ services:
     ports:
       - 8081:8080
     depends_on:
-      - postgres
+      - server-liza-alert
+      - pg-liza-alert
     env_file:
       - .env
   server-liza-alert:
@@ -19,7 +20,7 @@ services:
     ports:
       - 3000:3000
     depends_on:
-      - postgres
+      - pg-liza-alert
     env_file:
       - .env
   wsgi-liza-alert:
@@ -27,10 +28,8 @@ services:
       build:
         context: ./wsgi
         dockerfile: Dockerfile
-      # ports:
-      #   - 5001:5000
-      depends_on:
-        - postgres
+      ports:
+        - 5001:5000
       env_file:
         - .env
   pg-liza-alert:
