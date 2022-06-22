@@ -1,11 +1,22 @@
 version: '3.8'
 services:
+  wsgi-server:
+      container_name: wsgi-server
+      build:
+        context: ./wsgi
+        dockerfile: Dockerfile
+      ports:
+        - 5001:5000
+      depends_on:
+        - postgres
+      env_file:
+        - .env
   postgres:
     image: postgres:13
-    container_name: postgres
+    container_name: postgresLizaAlert
     restart: always
     ports:
-      - 5432:5432
+      - 5434:5432
     env_file:
       - .env
     volumes:
