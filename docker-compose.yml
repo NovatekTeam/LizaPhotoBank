@@ -1,19 +1,41 @@
 version: '3.8'
 services:
-  wsgi-server:
-      container_name: wsgi-server
+  client-liza-alert:
+    container_name: client-liza-alert
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - 8081:8080
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+  server-liza-alert:
+    container_name: server-liza-alert
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+  wsgi-liza-alert:
+      container_name: wsgi-liza-alert
       build:
         context: ./wsgi
         dockerfile: Dockerfile
-      ports:
-        - 5001:5000
+      # ports:
+      #   - 5001:5000
       depends_on:
         - postgres
       env_file:
         - .env
-  postgres:
+  pg-liza-alert:
     image: postgres:13
-    container_name: postgresLizaAlert
+    container_name: pg-liza-alert
     restart: always
     ports:
       - 5434:5432

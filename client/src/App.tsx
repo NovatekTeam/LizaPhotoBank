@@ -1,14 +1,20 @@
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import React from "react";
 import ReactDOM from "react-dom";
 
 import "./index.css";
+import { YDiskFiles } from "./ydiskFiles/ydiskFiles";
+
+const client = new ApolloClient({
+  uri: 'http://localhost:3000/graphql',
+  cache: new InMemoryCache()
+});
 
 const App = () => (
-  <div className="container">
-    <div>Name: client</div>
-    <div>Framework: react</div>
-    <div>Language: TypeScript</div>
-    <div>CSS: Empty CSS</div>
-  </div>
+  <YDiskFiles />
 );
-ReactDOM.render(<App />, document.getElementById("app"));
+ReactDOM.render(
+  <ApolloProvider client={client}>
+    <App />
+  </ApolloProvider>
+  , document.getElementById("app"));

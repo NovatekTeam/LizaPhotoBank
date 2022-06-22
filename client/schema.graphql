@@ -1,0 +1,37 @@
+type Query {
+  ydiskPagination: YdiskPagination!
+}
+
+type YdiskItems {
+  """Ссылка для скачивания"""
+  file: String!
+
+  """Имя файла"""
+  name: String!
+
+  """Путь внутри яндекс диска"""
+  path: String!
+
+  """Превью файла"""
+  preview: String!
+}
+
+type YdiskPagination {
+  """Офсет"""
+  items: [YdiskItems!]!
+
+  """Ограничение"""
+  limit: Int!
+
+  """Офсет"""
+  offset: Int!
+
+  """Путь на диске"""
+  path: String!
+
+  """Сортировка"""
+  sort: String!
+
+  """Всего файлов"""
+  total: Int!
+}

@@ -1,0 +1,9 @@
+query yDiskPagination {
+    ydiskPagination {
+     items{
+      path,
+      preview,
+      file
+     }
+    }
+}
