@@ -5,7 +5,7 @@
     "build": "npm run build-codegen && npm run build-webpack",
     "build-webpack" : "webpack --mode production",
     "build-codegen": "graphql-codegen",
-    "build:start": "cd dist && PORT=8080 npx serve",
+    "build:start": "cd dist && npx serve -l 8080",
 
     "start": "webpack serve --open --mode development",
     "start:live": "webpack serve --open --mode development --live-reload --hot",

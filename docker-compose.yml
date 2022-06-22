@@ -17,8 +17,8 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
-    ports:
-      - 3000:3000
+    # ports:
+    #   - 3000:3000
     depends_on:
       - pg-liza-alert
     env_file:
@@ -28,8 +28,8 @@ services:
       build:
         context: ./wsgi
         dockerfile: Dockerfile
-      ports:
-        - 5001:5000
+      # ports:
+      #   - 5001:5000
       env_file:
         - .env
   pg-liza-alert:
