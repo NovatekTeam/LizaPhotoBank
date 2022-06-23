@@ -39,7 +39,7 @@ module.exports = {
       ],
     },
 
-    plugins: [     
+    plugins: [        
       new ModuleFederationPlugin({
         name: "client",
         filename: "remoteEntry.js",
