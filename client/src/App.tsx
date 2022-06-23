@@ -6,7 +6,7 @@ import "./index.css";
 import { YDiskFiles } from "./ydiskFiles/ydiskFiles";
 
 const client = new ApolloClient({
-  uri: 'http://localhost:3333/graphql',
+  uri: 'http://allin-srv:3333/graphql',
   cache: new InMemoryCache()
 });
 
