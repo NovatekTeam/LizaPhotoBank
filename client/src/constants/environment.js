@@ -1,7 +1,7 @@
-const APP_GRAPHQL_SERVER = process.env.APP_GRAPHQL_SERVER;
+const GRAPHQL_SERVER = process.env.GRAPHQL_SERVER;
 const NODE_ENV = process.env.NODE_ENV;
 
 export {
-	APP_GRAPHQL_SERVER,
+	GRAPHQL_SERVER,
 	NODE_ENV,
 };

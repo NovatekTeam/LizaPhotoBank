@@ -4,7 +4,7 @@ const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPl
 
 const deps = require("./package.json").dependencies;
 
-module.exports = (env) => {
+module.exports = () => {
 
   return {
   output: {
@@ -45,7 +45,7 @@ module.exports = (env) => {
 
   plugins: [
     new Dotenv({
-      path: `./${env.mode}.env`
+      path: `.env`
     }),
     new ModuleFederationPlugin({
       name: "client",

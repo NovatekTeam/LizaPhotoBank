@@ -15,7 +15,7 @@ import { YdiskModule } from './ydisk/ydisk.module';
   WsgiModule,
   YdiskModule,
 ConfigModule.forRoot({
-  envFilePath: `${process.env.NODE_ENV}.env`
+  envFilePath: `.env`
 })],
   controllers: [],
   providers: [],
