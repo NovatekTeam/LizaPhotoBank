@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "scripts": {
     "build": "npm run build-codegen && npm run build-webpack",
-    "build-webpack": "webpack --mode production --config webpack.common.js",
+    "build-webpack": "webpack --mode production --config webpack.prod.js",
     "build-codegen": "graphql-codegen",
     "build:start": "cd dist && npx serve -l 8080",
-    "start": "webpack serve --open --mode development --config webpack.common.js",
+    "start": "webpack serve --open --mode development --config webpack.dev.js",
     "start:live": "webpack serve --open --mode development --live-reload --hot --config webpack.dev.js",
     "watch-codegen": "graphql-codegen --watch",
     "✨ Utilities": "",
