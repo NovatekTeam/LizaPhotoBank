@@ -45,7 +45,7 @@ module.exports = (env) => {
 
   plugins: [
     new Dotenv({
-      path: `../${env.mode}.env`
+      path: `./${env.mode}.env`
     }),
     new ModuleFederationPlugin({
       name: "client",
