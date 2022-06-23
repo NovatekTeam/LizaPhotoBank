@@ -6,7 +6,7 @@ import "./index.css";
 import { YDiskFiles } from "./ydiskFiles/ydiskFiles";
 
 const client = new ApolloClient({
-  uri: 'http://server-liza-alert:3000/graphql',
+  uri: 'http://localhost:3333/graphql',
   cache: new InMemoryCache()
 });
 
