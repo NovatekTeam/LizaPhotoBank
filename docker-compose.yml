@@ -11,7 +11,7 @@ services:
       - server-liza-alert
       - pg-liza-alert
     env_file:
-      - .env
+      - prod.env
   server-liza-alert:
     container_name: server-liza-alert
     build:
@@ -22,7 +22,7 @@ services:
     depends_on:
       - pg-liza-alert
     env_file:
-      - .env
+      - prod.env
   wsgi-liza-alert:
       container_name: wsgi-liza-alert
       build:
@@ -31,7 +31,7 @@ services:
       # ports:
       #   - 5001:5000
       env_file:
-        - .env
+        - prod.env
   pg-liza-alert:
     image: postgres:13
     container_name: pg-liza-alert
@@ -39,7 +39,7 @@ services:
     ports:
       - 5434:5432
     env_file:
-      - .env
+      - prod.env
     volumes:
       - postgres:/var/lib/postgresql/data
 

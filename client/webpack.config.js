@@ -1,13 +1,15 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-const path = require('path');
+const Dotenv = require('dotenv-webpack');
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
 const deps = require("./package.json").dependencies;
-module.exports = {
+
+module.exports = (env) => {
+
+  return {
   output: {
     publicPath: 'auto'
-  },
-
+  },  
 
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
@@ -42,6 +44,9 @@ module.exports = {
   },
 
   plugins: [
+    new Dotenv({
+      path: `../${env.mode}.env`
+    }),
     new ModuleFederationPlugin({
       name: "client",
       filename: "remoteEntry.js",
@@ -63,4 +68,5 @@ module.exports = {
       template: "./src/index.html",
     }),
   ],
+}
 };

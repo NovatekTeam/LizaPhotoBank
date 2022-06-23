@@ -1,4 +1,5 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { APP_GRAPHQL_SERVER} from './constants/environment'
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -6,7 +7,7 @@ import "./index.css";
 import { YDiskFiles } from "./ydiskFiles/ydiskFiles";
 
 const client = new ApolloClient({
-  uri: 'http://allin-srv:3333/graphql',
+  uri: APP_GRAPHQL_SERVER,
   cache: new InMemoryCache()
 });
 
