@@ -6,6 +6,8 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import { YDiskFiles } from "./ydiskFiles/ydiskFiles";
 
+console.log(APP_GRAPHQL_SERVER)
+
 const client = new ApolloClient({
   uri: APP_GRAPHQL_SERVER,
   cache: new InMemoryCache()

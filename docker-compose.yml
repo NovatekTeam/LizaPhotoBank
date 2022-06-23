@@ -6,12 +6,10 @@ services:
       context: ./client
       dockerfile: Dockerfile
     ports:
-      - 8081:8080
+      - 8081:${CLIENT_PORT}
     depends_on:
       - server-liza-alert
       - pg-liza-alert
-    env_file:
-      - prod.env
   server-liza-alert:
     container_name: server-liza-alert
     build:
@@ -21,8 +19,6 @@ services:
       - 3333:3333
     depends_on:
       - pg-liza-alert
-    env_file:
-      - prod.env
   wsgi-liza-alert:
       container_name: wsgi-liza-alert
       build:
@@ -30,8 +26,6 @@ services:
         dockerfile: Dockerfile
       # ports:
       #   - 5001:5000
-      env_file:
-        - prod.env
   pg-liza-alert:
     image: postgres:13
     container_name: pg-liza-alert
@@ -39,9 +33,6 @@ services:
     ports:
       - 5434:5432
     env_file:
-      - prod.env
+      - .env
     volumes:
-      - postgres:/var/lib/postgresql/data
-
-volumes:
-  postgres:
+      - ./posgtes/data:/var/lib/postgresql/data
