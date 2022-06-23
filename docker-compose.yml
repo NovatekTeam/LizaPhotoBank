@@ -6,7 +6,7 @@ services:
       context: ./client
       dockerfile: Dockerfile
     ports:
-      - 8081:${CLIENT_PORT}
+      - 8081:8080
     depends_on:
       - server-liza-alert
       - pg-liza-alert
