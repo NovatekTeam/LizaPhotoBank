@@ -56,7 +56,7 @@ export const TagsFilter = () => {
 
     return (
         <div style={{width: '30%', padding: "12px"}}>
-            <h2 style={{textAlign: "center"}}>Фильтры:</h2>
+            <h2 style={{textAlign: "left", padding: "12px"}}>Фильтры:</h2>
             <Tree
                 checkable
                 defaultExpandedKeys={['0-0-0', '0-0-1']}

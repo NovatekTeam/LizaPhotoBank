@@ -8,6 +8,7 @@ import { YDiskFiles } from "./ydiskFiles/ydiskFiles";
 import {TagsFilter} from "./tags/TagsFilter";
 import {StatisticBox} from "./main/StatisticBox";
 import {SearchBox} from "./search/SearchBox";
+import {TagsCloud} from "./tags/TagsCloud";
 
 console.log(GRAPHQL_SERVER)
 
@@ -22,6 +23,7 @@ const App = () => (
         <div style={{width: "100%"}}>
             <StatisticBox/>
             <SearchBox/>
+            <TagsCloud/>
             <YDiskFiles/>
         </div>
     </div>
