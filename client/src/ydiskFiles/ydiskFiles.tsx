@@ -35,8 +35,8 @@ export const YDiskFiles = () => {
     };
 
     return (
-        <div>
-            <Pagination  defaultCurrent={1} total={data?.ydiskPagination.total} showSizeChanger onShowSizeChange={onShowSizeChange}/>
+        <div style={{width: "100%"}}>
+            <Pagination style={{width: '100%'}}  defaultCurrent={1} total={data?.ydiskPagination.total} showSizeChanger onShowSizeChange={onShowSizeChange}/>
             <div style={{ display: 'flex' }}>
                 {data?.ydiskPagination.items.map(key => {
                         return <Card
