@@ -35,28 +35,31 @@ export const YDiskFiles = () => {
     };
 
     return (
-        <div style={{ display: 'flex' }}>
+        <div>
             <Pagination  defaultCurrent={1} total={data?.ydiskPagination.total} showSizeChanger onShowSizeChange={onShowSizeChange}/>
-            {data?.ydiskPagination.items.map(key => {
-                return <Card
-                        size="small"
-                        title={getTitle(key?.path)}
-                        hoverable
-                        style={{width: 200, height: 200, margin: 20}}
-                        cover={<Image width={'100%'} height={200} src={key.preview}/>}
-                        actions={[
-                            <EditOutlined key="edit" onClick={() => {
-                                setShowModal(true)
-                                setSelectedItem(key.path)
-                            }}/>,
-                        ]}
-                    >
-                    </Card>;
-                }
-            )}
-            <Modal title={getTitle(getSelectedItem()?.path)} visible={showModal} onOk={() => setShowModal(false)} onCancel={() => setShowModal(false)}>
-                <Input defaultValue={getSelectedItem()?.path}/>
-            </Modal>
+            <div style={{ display: 'flex' }}>
+                {data?.ydiskPagination.items.map(key => {
+                        return <Card
+                            size="small"
+                            title={getTitle(key?.path)}
+                            hoverable
+                            style={{width: 200, height: 200, margin: 20}}
+                            cover={<Image width={'100%'} height={200} src={key.preview}/>}
+                            actions={[
+                                <EditOutlined key="edit" onClick={() => {
+                                    setShowModal(true)
+                                    setSelectedItem(key.path)
+                                }}/>,
+                            ]}
+                        >
+                        </Card>;
+                    }
+                )}
+                <Modal title={getTitle(getSelectedItem()?.path)} visible={showModal} onOk={() => setShowModal(false)} onCancel={() => setShowModal(false)}>
+                    <Input defaultValue={getSelectedItem()?.path}/>
+                </Modal>
+            </div>
+
         </div>
     );
 
