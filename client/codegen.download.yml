@@ -1,5 +1,5 @@
 schema:
-  - 'http://localhost:3000/graphql'
+  - 'http://localhost:3333/graphql'
 generates:
   ./schema.graphql:
     plugins:

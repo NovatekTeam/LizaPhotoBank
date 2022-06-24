@@ -1,9 +1,12 @@
 query yDiskPagination {
     ydiskPagination {
-     items{
-      path,
-      preview,
-      file
-     }
+        items{
+            path,
+            preview,
+            file
+        },
+        limit,
+        offset,
+        total
     }
 }

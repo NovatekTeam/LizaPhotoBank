@@ -6,7 +6,7 @@ export class YdiskPagination {
   @Field(() => String, { description: 'Сортировка' })
   sort: string;
 
-  @Field(() => [YdiskItems], { description: 'Офсет' })
+  @Field(() => [YdiskItems], { description: 'Элементы' })
   items: [YdiskItems];
 
   @Field(() => Int, { description: 'Ограничение' })
@@ -21,6 +21,8 @@ export class YdiskPagination {
   @Field(() => Int, { description: 'Всего файлов' })
   total: number;
 
+  @Field(() => String, { description: 'Описание' })
+  info: string;
   
 }
 

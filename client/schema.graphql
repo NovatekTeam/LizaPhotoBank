@@ -1,37 +1,35 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+}
+
 type Query {
-  ydiskPagination: YdiskPagination!
+    ydiskPagination: YdiskPagination!
 }
 
 type YdiskItems {
-  """Ссылка для скачивания"""
-  file: String!
-
-  """Имя файла"""
-  name: String!
-
-  """Путь внутри яндекс диска"""
-  path: String!
-
-  """Превью файла"""
-  preview: String!
+    "Ссылка для скачивания"
+    file: String!
+    "Имя файла"
+    name: String!
+    "Путь внутри яндекс диска"
+    path: String!
+    "Превью файла"
+    preview: String!
 }
 
 type YdiskPagination {
-  """Офсет"""
-  items: [YdiskItems!]!
-
-  """Ограничение"""
-  limit: Int!
-
-  """Офсет"""
-  offset: Int!
-
-  """Путь на диске"""
-  path: String!
-
-  """Сортировка"""
-  sort: String!
-
-  """Всего файлов"""
-  total: Int!
+    "Элементы"
+    items: [YdiskItems!]!
+    "Ограничение"
+    limit: Int!
+    "Офсет"
+    offset: Int!
+    "Путь на диске"
+    path: String!
+    "Сортировка"
+    sort: String!
+    "Всего файлов"
+    total: Int!
 }
