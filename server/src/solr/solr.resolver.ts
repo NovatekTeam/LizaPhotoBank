@@ -18,8 +18,8 @@ export class SolrResolver {
   }
 
   @Mutation(() => solrInputResponse,  { name: 'solrMediaMutation' })
-  async updateMediaDocs(@Args('solrDocs', { type: () => [SolrDocsInput] }) solrDocs: SolrDocsInput[]) {
-    return this.solrService.updateMediaWDocs(solrDocs);
+  async updateMediaDocs(@Args('solrDoc', { type: () => SolrDocsInput }) solrDoc: SolrDocsInput) {
+    return this.solrService.updateSolrDocs(solrDoc);
   }
 
 

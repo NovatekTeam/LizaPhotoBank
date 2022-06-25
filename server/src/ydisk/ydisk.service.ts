@@ -35,7 +35,7 @@ export class YdiskService {
     } catch (error) {
       cp = this.createCheckpoint()
     }
-    let yparam = { public_key: "https://disk.yandex.ru/d/L80wUZQrcBDVIQ", solr: 'modified asc', limit: 0, offset: 0, path: '/dataset' }
+    let yparam = { public_key: "https://disk.yandex.ru/d/L80wUZQrcBDVIQ", limit: 0, offset: 0, path: '/dataset' }
     const totalRes = await this.fetchFromYdisk(yparam)
     yparam.limit = 20
 
@@ -46,6 +46,7 @@ export class YdiskService {
       yparam.offset = yparam.limit * page
       const res = await this.fetchFromYdisk(yparam)
       const docs = res.data._embedded.items.filter(item => new Date(item.modified) > cp)
+      if (docs.length === 0) return 'Nothing to sync';
       docs.forEach(async (item) => {
         const writer = createWriteStream(`./tmp/${item.name}`)
         const response = await this.httpService.axiosRef.get<Stream>(item.file, { responseType: 'stream' })
@@ -62,7 +63,7 @@ export class YdiskService {
           const media = plainToInstance(MediaCreateInput, solrDoc)
           const returnMedia = await this.mediaDbService.createMedia(media)
           solrDoc.id = returnMedia.id
-          await this.solrService.updateSolrDocs([solrDoc])
+          await this.solrService.addSolrDocs([solrDoc])
           writer.end()
         });
         writer.on('error', (error) => {
@@ -72,7 +73,6 @@ export class YdiskService {
 
       });
     }
-  
 
 
 

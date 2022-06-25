@@ -19,6 +19,7 @@ model Media {
   mediaSize       Int?
   mediaType       String? @db.VarChar(32)
   mediaPreviewUrl String? @db.VarChar(512)
+  title           String? @db.VarChar(512)
   tags            Tags[]
 }
 

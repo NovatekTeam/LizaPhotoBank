@@ -15,10 +15,10 @@ export class SolrDocs {
     @Field(() => String, { description: 'Тип файла', nullable: true })
     media_type: string;
 
-    // @Field(() => String, { description: 'Размер файла' , nullable: true})
-    // media_size: string;
+    @Field(() => String, { description: 'Url превью' , nullable: true})
+    media_preview_url: string;
 
-    @Field(() => String, { description: 'Заголовок' , nullable: true})
+    @Field(() => String, { description: 'Комментарии' , nullable: true})
     title: string;
     
     @Field(() => [String], { description: 'Тэги', nullable: true })
