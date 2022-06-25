@@ -31,6 +31,9 @@ services:
       build:
         context: ./wsgi
         dockerfile: Dockerfile
+      volumes:
+        - ./scripts:/scripts/
+        - ./models:/models/
       # ports:
       #   - 5001:5000
   pg-liza-alert:
