@@ -90,7 +90,10 @@ def download(username, password, url):
                     shutil.move(dir_path.joinpath(filename),train_path.joinpath(new_filename))
 
     shutil.rmtree(dir_path)
-    shapes[['points','md5']].to_csv(train_path.joinpath('data.csv'),index=False)
+
+    boxes=pd.DataFrame(shapes['points'].to_list(), columns=['x1', 'y1', 'x2', 'y2']).astype('int')
+    shapes=pd.concat([shapes,boxes], axis=1)
+    shapes[['md5','label_id',*boxes.columns]].to_csv(train_path.joinpath('data.csv'),index=False)
 
 if __name__ == "__main__":
     sys.exit(check_arguments())
