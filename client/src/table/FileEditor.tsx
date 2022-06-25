@@ -29,8 +29,8 @@ export const FileEditor = (props: {selectedRow: {
 
 
     useEffect(() => {
-        console.log("set selectedRow " + props.selectedRow)
         setSelectedRow(props.selectedRow);
+        setSelectedTags(props.selectedRow?.media_tags);
     }, [props.selectedRow])
 
 
@@ -40,31 +40,28 @@ export const FileEditor = (props: {selectedRow: {
         )
     }
 
-    function findTags() {
-        return data?.TagsQuery.filter(it => selectedRow?.media_tags?.includes(it.tagName)).map(it => it.tagName);
-    }
 
     const handleChange = (value: any[]) => {
-        let tags = value.map(tagName => data?.TagsQuery?.find(it => it.tagName === tagName));
-        setSelectedTags(tags)
+        setSelectedTags(value)
     };
 
     function handleSave() {
-       updateDb({
-           variables : {
-               mediaId: +selectedRow?.id,
-               tagsId: selectedTags?.map(it => {
-                   const tag: TagsWhereUniqueInput = {
-                       id: +it.id
-                   };
-                   return tag;
-               })
-           }
-       });
+        let tags = selectedTags.map(tagName => data?.TagsQuery?.find(it => it.tagName === tagName));
+        updateDb({
+            variables : {
+                mediaId: +selectedRow?.id,
+                tagsId: tags?.map(it => {
+                    const tag: TagsWhereUniqueInput = {
+                        id: +it.id
+                    };
+                    return tag;
+                })
+            }
+        });
         updateSolr({
             variables: {
                 mediaId: selectedRow?.id,
-                tags: selectedTags?.map(it => it.tagName)
+                tags: tags?.map(it => it.tagName)
             }
         })
         props.onClose();
@@ -89,7 +86,7 @@ export const FileEditor = (props: {selectedRow: {
                         width: '100%',
                     }}
                     placeholder="Please select"
-                    defaultValue={findTags()}
+                    value={selectedTags}
                     onChange={handleChange}
                 >
                     {
