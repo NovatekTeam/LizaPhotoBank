@@ -2,3 +2,6 @@ dataset/
 posgtes
 solr
 models
+lightning_logs
+logs
+*.pt
