@@ -19,7 +19,7 @@ export class SolrResolver {
 
   @Query(() => String, { name: 'syncSolrWDb' })
   async syncSolrWDb() {
-    return this.solrService.syncSolrMediaTags();
+    return this.solrService.syncSolrMedia();
   }
 
   @Mutation(() => solrInputResponse,  { name: 'solrMediaMutation' })
