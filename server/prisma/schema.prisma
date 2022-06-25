@@ -1,8 +1,10 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
+}
+
+generator nestgraphql {
+  provider = "node node_modules/prisma-nestjs-graphql"
+  output   = "../src/@generated"
 }
 
 datasource db {
@@ -10,8 +12,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+model Media {
+  id         Int    @id @default(autoincrement())
+  mediaName String @db.VarChar(64)
+  mediaPath String @db.VarChar(128)
+  mediaSize Int
+  mediaType String @db.VarChar(32)
+  tags       Tags[]
+}
+
+model Tags {
+  id       Int     @id @default(autoincrement())
+  tagGroup String  @db.VarChar(32)
+  tagName  String  @db.VarChar(32)
+  tagCode  Int?
+  tagDes   String  @db.VarChar(256)
+  medias   Media[]
 }

@@ -1,9 +1,9 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { YdiskItems } from './ydiskItems.entity';
+import { Field, Int, ObjectType } from "@nestjs/graphql";
+import { YdiskItems } from "./ydiskItems.entity";
 
 @ObjectType()
-export class YdiskPagination {
-  @Field(() => String, { description: 'Сортировка' })
+export class YDiskPaginated {
+@Field(() => String, { description: 'Сортировка' })
   sort: string;
 
   @Field(() => [YdiskItems], { description: 'Элементы' })
@@ -23,8 +23,4 @@ export class YdiskPagination {
 
   @Field(() => String, { description: 'Описание' })
   info: string;
-  
 }
-
-
-

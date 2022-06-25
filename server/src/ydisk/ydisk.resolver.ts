@@ -1,15 +1,15 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { YdiskService } from './ydisk.service';
-import { YdiskPagination } from './entities/ydiskPagination.entity';
+import { YDiskResource } from './entities/ydiskRecource.entity';
 
-@Resolver(() => YdiskPagination)
+@Resolver(() => YDiskResource)
 export class YdiskResolver {
   constructor(private readonly ydiskService: YdiskService) {}
 
  
-  @Query(() => YdiskPagination, { name: 'ydiskPagination' })
-  async findAll() {
-    return this.ydiskService.findAll();
+  @Query(() => String, { name: 'syncFiles' })
+  async syncFiles() {
+    return this.ydiskService.syncFiles();
     
   }
 
