@@ -55,7 +55,7 @@ export const TagsFilter = () => {
     };
 
     return (
-        <div style={{width: '30%', padding: "12px"}}>
+        <div style={{width: '10%', padding: "12px"}}>
             <h2 style={{textAlign: "left", padding: "12px"}}>Фильтры:</h2>
             <Tree
                 checkable

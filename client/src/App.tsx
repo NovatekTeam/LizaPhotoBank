@@ -24,11 +24,11 @@ const App = () => (
         <TagsFilter />
         <div style={{width: "100%"}}>
             <StatisticBox/>
-            <SearchBox/>
-            <div style={{display: 'flex' , width: "100%", height: "400px"}}>
+            <div style={{display: 'flex' , width: "100%", height: "400px", justifyContent: "center", alignItems:"center", alignSelf: "center"}}>
                 <TagsCloud/>
                 <TagsChart/>
             </div>
+            <SearchBox/>
             <FileTable/>
             {/*<YDiskFiles/>*/}
         </div>

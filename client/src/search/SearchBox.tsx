@@ -8,13 +8,15 @@ export const SearchBox = () => {
     }
 
     return (
-        <Search
-            style={{padding: '12px'}}
-            placeholder="текст для поиска"
-            allowClear
-            enterButton="Найти"
-            size="large"
-            onSearch={onSearch}
-        />
+        <div style={{width: "100%", display: "flex", justifyContent: "center", alignItems:"center", alignSelf: "center"}}>
+            <Search
+                style={{padding: '12px', maxWidth: 1000}}
+                placeholder="текст для поиска"
+                allowClear
+                enterButton="Найти"
+                size="large"
+                onSearch={onSearch}
+            />
+        </div>
     )
 };
