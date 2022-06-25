@@ -1,6 +1,6 @@
-dataset/
-posgtes
-solr
+.dataset/
+.posgtes/
+.solr/
 models
 lightning_logs
 logs
