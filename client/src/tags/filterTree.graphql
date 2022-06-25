@@ -1,5 +1,6 @@
 query filterTree {
     TagsQuery {
+        id,
         tagGroup,
         tagName,
         _count {
