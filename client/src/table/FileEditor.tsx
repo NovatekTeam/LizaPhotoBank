@@ -7,6 +7,7 @@ import {usefilterTree} from "../tags/__generated__/filterTree";
 import {useupdateDb} from "./__generated__/updateDb";
 import {useupdateSolr} from "./__generated__/updateSolr";
 import {TagsWhereUniqueInput} from "../__generated__/types";
+const { Option } = Select;
 
 export const FileEditor = (props: {selectedRow: {
         id: number,
@@ -15,7 +16,7 @@ export const FileEditor = (props: {selectedRow: {
         media_type: string,
         media_tags: [],
         media_preview_url: string
-    }}) => {
+    }, onClose: () => void}) => {
 
     let [updateDb] = useupdateDb();
     let [updateSolr] = useupdateSolr()
@@ -28,6 +29,7 @@ export const FileEditor = (props: {selectedRow: {
 
 
     useEffect(() => {
+        console.log("set selectedRow " + props.selectedRow)
         setSelectedRow(props.selectedRow);
     }, [props.selectedRow])
 
@@ -39,16 +41,15 @@ export const FileEditor = (props: {selectedRow: {
     }
 
     function findTags() {
-        return data?.TagsQuery.filter(it => selectedRow?.media_tags?.include(it.tagName));
+        return data?.TagsQuery.filter(it => selectedRow?.media_tags?.includes(it.tagName)).map(it => it.tagName);
     }
 
     const handleChange = (value: any[]) => {
-        let tags = value.map(idx => data?.TagsQuery[idx]);
+        let tags = value.map(tagName => data?.TagsQuery?.find(it => it.tagName === tagName));
         setSelectedTags(tags)
     };
 
     function handleSave() {
-
        updateDb({
            variables : {
                mediaId: +selectedRow?.id,
@@ -66,14 +67,12 @@ export const FileEditor = (props: {selectedRow: {
                 tags: selectedTags?.map(it => it.tagName)
             }
         })
-        setSelectedRow(undefined)
-        setSelectedTags([])
+        props.onClose();
     }
 
     return (
         <Modal title={selectedRow?.media_name} visible={selectedRow} onOk={handleSave} onCancel={() => {
-            setSelectedRow(undefined)
-            setSelectedTags([])
+            props.onClose();
         }} >
             <Popover content={() => popupImage(selectedRow?.media_preview_url)} title={selectedRow?.media_name}>
                 <img style={{marginBottom: 16}}  width={150} height={150} src={selectedRow?.media_preview_url} alt={selectedRow?.media_preview_url}/>
@@ -94,7 +93,7 @@ export const FileEditor = (props: {selectedRow: {
                     onChange={handleChange}
                 >
                     {
-                        data?.TagsQuery?.map(it => <Select key={it.id}>{it.tagName}</Select>)
+                        data?.TagsQuery?.map(it => <Option key={it.tagName}>{it.tagName}</Option>)
                     }
                 </Select>
             </div>
