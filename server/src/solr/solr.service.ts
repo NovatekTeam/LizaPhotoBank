@@ -57,7 +57,8 @@ export class SolrService {
       }
     })
 
-    const res = await this.httpService.axiosRef.post(`${this.sConfig.url}${this.sConfig.core}/update`, JSON.stringify([docs]), {
+
+    const res = await this.httpService.axiosRef.post(`${this.sConfig.url}${this.sConfig.core}/update?commit=true`, JSON.stringify([docs]), {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -66,19 +67,6 @@ export class SolrService {
     return res.data
 
 
-
-    // const media = plainToInstance(MediaUpdateInput, instanceToPlain(docs[0]))
-    // const args = new UpdateOneMediaArgs()
-    // args.data = media
-    // args.where = { id: media.id}
-
-    // const p2 = this.mediaDbService.updateMedia(args)
-
-    // const p1 = this.addSolrDocs(docs)
-
-    // const res = await Promise.all([p1,p2])
-
-    // return res[0].data
 
   }
 }

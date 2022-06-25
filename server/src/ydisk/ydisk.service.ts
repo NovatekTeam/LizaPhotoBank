@@ -37,7 +37,7 @@ export class YdiskService {
     }
     let yparam = { public_key: "https://disk.yandex.ru/d/L80wUZQrcBDVIQ", limit: 0, offset: 0, path: '/dataset' }
     const totalRes = await this.fetchFromYdisk(yparam)
-    yparam.limit = 20
+    yparam.limit = 50
 
     const pages = Math.floor(totalRes.data._embedded.total / yparam.limit)
   

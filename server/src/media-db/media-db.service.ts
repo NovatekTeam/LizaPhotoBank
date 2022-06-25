@@ -41,8 +41,16 @@ export class MediaDbService {
   }
 
   findAllTags() {
-    return this.prisma.tags.findMany()
+    return this.prisma.tags.findMany({
+      include: {
+        _count :{
+          select : {medias : true}
+        }
+      }
+    })
   }
+
+ 
 
   findMediaTags(mediaId: number) {
     return this.prisma.tags.findMany({
