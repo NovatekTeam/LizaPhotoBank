@@ -2,7 +2,7 @@
 import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
-import solrConfig from 'config/solr.config';
+import solrConfig from 'src/config/solr.config';
 import { map } from 'rxjs';
 import { PutSolrDocsInput } from './entities/types/create-solrDocs.input';
 import { solrParamInput } from './entities/types/solrParam.input';

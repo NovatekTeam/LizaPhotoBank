@@ -2,7 +2,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
-import solrConfig from 'config/solr.config';
+import solrConfig from 'src/config/solr.config';
 import { MediaDbModule } from './media-db/media-db.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { SolrModule } from './solr/solr.module';

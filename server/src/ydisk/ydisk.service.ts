@@ -30,7 +30,7 @@ export class YdiskService {
         media.mediaPath = item.path
         media.mediaSize = item.size
         media.mediaType = item.media_type        
-        await this.mediaDbService.createMedia(media)         
+        await this.mediaDbService.createMedia(media)   
       });
       writer.on('error', (error) => { 
         console.log(error)
