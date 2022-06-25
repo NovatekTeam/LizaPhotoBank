@@ -25,7 +25,6 @@ const App = () => (
         <div style={{width: "100%"}}>
             <StatisticBox/>
             <SearchBox/>
-            <FileTable/>
         </div>
     </div>
 );

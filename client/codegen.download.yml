@@ -1,5 +1,5 @@
 schema:
-  - 'http://localhost:3333/graphql'
+  - 'http://novateam.ddns.net:3333/graphql'
 generates:
   ./schema.graphql:
     plugins:

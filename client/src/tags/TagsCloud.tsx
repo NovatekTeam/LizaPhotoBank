@@ -7,7 +7,7 @@ export const TagsCloud = () => {
     const callbacks = {
         getWordColor: (word: Word) => (word.value > 50 ? "orange" : "purple"),
         getWordTooltip: (word: Word) =>
-            `Таг "${word.text}" встречается ${word.value} раз.`,
+            `${word.value}`,
         onWordClick:  (word: Word, event?: MouseEvent) =>
             window.open(`https://duckduckgo.com/?q=${word.text}`, "_blank"),
     };

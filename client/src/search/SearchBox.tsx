@@ -1,5 +1,6 @@
 import Search from "antd/lib/input/Search";
 import React from "react";
+import {FileTable} from "../table/FileTable";
 
 export const SearchBox = () => {
 
@@ -8,7 +9,7 @@ export const SearchBox = () => {
     }
 
     return (
-        <div style={{width: "100%", display: "flex", justifyContent: "center", alignItems:"center", alignSelf: "center"}}>
+        <div style={{width: "100%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems:"center", alignSelf: "center"}}>
             <Search
                 style={{padding: '12px', maxWidth: 1000}}
                 placeholder="текст для поиска"
@@ -17,6 +18,7 @@ export const SearchBox = () => {
                 size="large"
                 onSearch={onSearch}
             />
+            <FileTable/>
         </div>
     )
 };
