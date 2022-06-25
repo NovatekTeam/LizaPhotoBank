@@ -35,7 +35,7 @@ export class YdiskService {
     } catch (error) {
       cp = this.createCheckpoint()
     }
-    let yparam = { public_key: "https://disk.yandex.ru/d/L80wUZQrcBDVIQ/dataset", solr: 'modified asc', limit: 0, offset: 0 }
+    let yparam = { public_key: "https://disk.yandex.ru/d/L80wUZQrcBDVIQ", solr: 'modified asc', limit: 0, offset: 0, path: '/dataset' }
     const totalRes = await this.fetchFromYdisk(yparam)
     yparam.limit = 20
 
