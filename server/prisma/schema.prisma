@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,8 +7,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+model tags {
+  id           Int            @id @default(autoincrement())
+  tag_group    String         @db.VarChar(32)
+  tag_name     String         @db.VarChar(32)
+  tag_code     Int?
+  media_tagged media_tagged[]
+}
+
+model media {
+  id           Int           @id(map: "photo_tagged_pkey") @default(autoincrement())
+  media_name   String        @db.VarChar(64)
+  media_path   String        @db.VarChar(128)
+  media_tagged media_tagged?
+}
+
+model media_tagged {
+  id       Int?  @default(autoincrement())
+  media_id Int   @id(map: "photos_tagged_pkey")
+  tag_id   Int?
+  media    media @relation(fields: [media_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "photo_tagged_fk_photo")
+  tags     tags? @relation(fields: [tag_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "photo_tagged_fk_tag")
 }
