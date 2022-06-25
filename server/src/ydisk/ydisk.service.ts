@@ -66,9 +66,9 @@ export class YdiskService {
           solrDoc.media_type = item.media_type
           solrDoc.media_preview_url = `http://novateam.ddns.net:3333/${item.name}`
           const media = plainToInstance(MediaCreateInput, solrDoc)
-          //const returnMedia = await this.mediaDbService.createMedia(media)
-          //solrDoc.id = returnMedia.id
-          //await this.solrService.addSolrDocs([solrDoc])
+          const returnMedia = await this.mediaDbService.createMedia(media)
+          solrDoc.id = returnMedia.id
+          await this.solrService.addSolrDocs([solrDoc])
           writer.end()
         });
         writer.on('error', (error) => {
