@@ -2,30 +2,30 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator nestgraphql {
+  provider = "node node_modules/prisma-nestjs-graphql"
+  output   = "../src/@generated"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-model tags {
-  id           Int            @id @default(autoincrement())
-  tag_group    String         @db.VarChar(32)
-  tag_name     String         @db.VarChar(32)
-  tag_code     Int?
-  media_tagged media_tagged[]
+model Media {
+  id         Int    @id @default(autoincrement())
+  mediaName String @db.VarChar(64)
+  mediaPath String @db.VarChar(128)
+  mediaSize Int
+  mediaType String @db.VarChar(32)
+  tags       Tags[]
 }
 
-model media {
-  id           Int           @id(map: "photo_tagged_pkey") @default(autoincrement())
-  media_name   String        @db.VarChar(64)
-  media_path   String        @db.VarChar(128)
-  media_tagged media_tagged?
-}
-
-model media_tagged {
-  id       Int?  @default(autoincrement())
-  media_id Int   @id(map: "photos_tagged_pkey")
-  tag_id   Int?
-  media    media @relation(fields: [media_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "photo_tagged_fk_photo")
-  tags     tags? @relation(fields: [tag_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "photo_tagged_fk_tag")
+model Tags {
+  id       Int     @id @default(autoincrement())
+  tagGroup String  @db.VarChar(32)
+  tagName  String  @db.VarChar(32)
+  tagCode  Int?
+  tagDes   String  @db.VarChar(256)
+  medias   Media[]
 }

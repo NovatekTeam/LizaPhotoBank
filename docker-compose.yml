@@ -17,6 +17,8 @@ services:
     environment:
       - SERVER_PORT=${SERVER_PORT}
       - DATABASE_URL=${DATABASE_URL}
+      - SOLR_CORE=${SOLR_CORE}
+      - SOLR_URL=${SOLR_URL}
     build:
       context: ./server
       dockerfile: Dockerfile
