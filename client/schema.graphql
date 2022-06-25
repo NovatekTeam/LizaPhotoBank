@@ -2,24 +2,85 @@
 
 schema {
     query: Query
+    mutation: Mutation
+}
+
+type Media {
+    id: ID!
+    mediaName: String!
+    mediaPath: String!
+    mediaSize: Int!
+    mediaType: String!
+    tags: [Tags!]!
+}
+
+type Mutation {
+    putSolrDocs(solrDocs: [PutSolrDocsInput!]!): solrInputResponse!
+    updateMedia(data: MediaUpdateInput!, where: MediaWhereUniqueInput!): Media!
 }
 
 type Query {
-    ydiskPagination: YdiskPagination!
+    MediaQuery(args: MediaWhereUniqueInput!): Media!
+    SolrQuery(params: solrParamInput!): SolrPaginated!
+    TagsQuery: [Tags!]!
+    syncFiles: String!
 }
 
-type YdiskItems {
-    "Ссылка для скачивания"
-    file: String!
+type SolrDocs {
+    "Версия"
+    _version_: Int!
+    "ID документа"
+    id: ID!
     "Имя файла"
-    name: String!
-    "Путь внутри яндекс диска"
-    path: String!
-    "Превью файла"
-    preview: String!
+    media_name: String
+    "Путь до файла"
+    media_path: String
+    "Размер файла"
+    media_size: String
+    "Тэги"
+    media_tags: [String!]
+    "Тип файла"
+    media_type: String
+    "Заголовок"
+    title: String
 }
 
-type YdiskPagination {
+type SolrPaginated {
+    "Ответ"
+    response: SolrResponse!
+    "Заголовок"
+    responseHeader: SolrResponseHeader!
+}
+
+type SolrResponse {
+    "Найденные документы"
+    docs: [SolrDocs!]
+    "Кол-во совпадений"
+    numFound: Int
+    "Точное совпадение"
+    numFoundExact: Boolean
+    start: Int
+}
+
+type SolrResponseHeader {
+    "Время ответа"
+    QTime: Int!
+    "Статус"
+    status: Int!
+}
+
+type Tags {
+    id: ID!
+    medias: [Media!]
+    tagCode: Int
+    tagDes: String!
+    tagGroup: String!
+    tagName: String!
+}
+
+type YDiskPaginated {
+    "Описание"
+    info: String!
     "Элементы"
     items: [YdiskItems!]!
     "Ограничение"
@@ -32,4 +93,69 @@ type YdiskPagination {
     sort: String!
     "Всего файлов"
     total: Int!
+}
+
+type YdiskItems {
+    "Ссылка для скачивания"
+    file: String!
+    "Тип файла"
+    media_type: String!
+    "Расширение файла"
+    mime_type: String!
+    "Имя файла"
+    name: String!
+    "Путь внутри яндекс диска"
+    path: String!
+    "Ссылка на превью файла"
+    preview: String!
+    "Размер файла"
+    size: Int!
+}
+
+type solrInputResponse {
+    "Заголовок"
+    responseHeader: SolrResponseHeader!
+}
+
+input MediaUpdateInput {
+    id: Int
+    mediaName: String
+    mediaPath: String
+    mediaSize: Int
+    mediaType: String
+    tags: TagsConnectedMediasInput
+}
+
+input MediaWhereUniqueInput {
+    id: Int
+}
+
+input PutSolrDocsInput {
+    "ID документа"
+    id: ID!
+    "Имя файла"
+    media_name: String
+    "Путь до файла"
+    media_path: String
+    "Размер файла"
+    media_size: String
+    "Тэги"
+    media_tags: [String!]
+    "Тип файла"
+    media_type: String
+    "Заголовок"
+    title: String
+}
+
+input TagsConnectedMediasInput {
+    connect: [TagsWhereUniqueInput!]
+}
+
+input TagsWhereUniqueInput {
+    id: Int
+}
+
+input solrParamInput {
+    q: String
+    start: Int
 }

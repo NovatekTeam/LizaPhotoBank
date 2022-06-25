@@ -13,7 +13,7 @@ export const TagsCloud = () => {
     };
 
     return (
-        <div style={{ height: '400px', width: "50%"}}>
+        <div >
             <ReactWordcloud callbacks={callbacks} words={words} />
         </div>
     )

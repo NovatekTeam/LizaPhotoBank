@@ -1,50 +1,31 @@
 import React from "react";
 import {Tree} from "antd";
+import {usefilterTree} from "./__generated__/filterTree";
 
 export const TagsFilter = () => {
 
-    const treeData = [
-        {
-            title: 'parent 1',
-            key: '0-0',
-            children: [
-                {
-                    title: 'parent 1-0',
-                    key: '0-0-0',
-                    disabled: true,
-                    children: [
-                        {
-                            title: 'leaf',
-                            key: '0-0-0-0',
-                            disableCheckbox: true,
-                        },
-                        {
-                            title: 'leaf',
-                            key: '0-0-0-1',
-                        },
-                    ],
-                },
-                {
-                    title: 'parent 1-1',
-                    key: '0-0-1',
-                    children: [
-                        {
-                            title: (
-                                <span
-                                    style={{
-                                        color: '#1890ff',
-                                    }}
-                                >
-                sss
-              </span>
-                            ),
-                            key: '0-0-1-0',
-                        },
-                    ],
-                },
-            ],
-        },
-    ];
+    const { data, loading, error } = usefilterTree();
+
+    let tagGroup = data?.TagsQuery?.map(it => it.tagGroup);
+    let distinctTagGroup = tagGroup?.filter((it , pos) => tagGroup.indexOf(it)== pos)?.sort();
+
+    function findTagByGroup(group: string) {
+        let map = data?.TagsQuery?.filter(it => it.tagGroup === group).map(it => ({
+            key: it.tagName,
+            title: it.tagName,
+        }));
+        console.log(map)
+        return map
+    }
+
+    let treeData = distinctTagGroup?.map(it => {
+        let childrens = findTagByGroup(it);
+        return ({
+            key: it,
+            title: it,
+            children: childrens.length > 1 ? childrens: []
+        });
+    });
 
     const onSelect = (selectedKeys, info) => {
         console.log('selected', selectedKeys, info);
@@ -54,17 +35,16 @@ export const TagsFilter = () => {
         console.log('onCheck', checkedKeys, info);
     };
 
+    let a;
+    console.log(treeData)
     return (
-        <div style={{width: '10%', padding: "12px"}}>
+        <div style={{width: '15%', padding: "12px", minWidth:"200px"}}>
             <h2 style={{textAlign: "left", padding: "12px"}}>Фильтры:</h2>
             <Tree
                 checkable
-                defaultExpandedKeys={['0-0-0', '0-0-1']}
-                defaultSelectedKeys={['0-0-0', '0-0-1']}
-                defaultCheckedKeys={['0-0-0', '0-0-1']}
                 onSelect={onSelect}
                 onCheck={onCheck}
-                treeData={treeData}
+                treeData={treeData ? treeData : a}
             />
         </div>
     )

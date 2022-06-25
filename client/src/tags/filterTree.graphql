@@ -1,0 +1,6 @@
+query filterTree {
+    TagsQuery {
+        tagGroup,
+        tagName
+    }
+}
