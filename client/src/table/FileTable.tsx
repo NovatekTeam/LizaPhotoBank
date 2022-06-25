@@ -80,7 +80,9 @@ export const FileTable = (props: {searchText: string, tagFilter: string[]}) => {
             title: 'Редактировать',
             key: 'action',
             render: (_, record) => (
-                <Button icon={<EditTwoTone />} onClick={() => setSelectedRow(record)}/>
+                <Button icon={<EditTwoTone />} onClick={() => {
+                    setSelectedRow(record);
+                }}/>
             ),
         },
     ];
@@ -104,7 +106,7 @@ export const FileTable = (props: {searchText: string, tagFilter: string[]}) => {
                 dataSource={dataResponse?.docs}
                 onChange={handleTableChange}
             />
-            <FileEditor selectedRow={selectedRow}  />
+            <FileEditor selectedRow={selectedRow} onClose={() => setSelectedRow(null)}   />
         </div>
     )
 }
