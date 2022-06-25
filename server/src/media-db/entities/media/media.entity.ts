@@ -20,6 +20,9 @@ export class Media {
     @Field(() => String, {nullable:false})
     mediaType!: string;
 
+    @Field(() => String, {nullable:false})
+    mediaPreviewUrl!: string;
+
     @Field(() => [Tags], {nullable:true})
     tags?: Array<Tags>;
 

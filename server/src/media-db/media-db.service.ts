@@ -17,6 +17,10 @@ export class MediaDbService {
     return this.prisma.media.create({ data: createMedia })
   }
 
+  createMedias(createMedias: MediaCreateInput[]) {
+    return this.prisma.media.createMany({data: createMedias})
+  }
+
   findMediaById(args: MediaWhereUniqueInput) {
     return this.prisma.media.findUnique({ where: args })
   }
@@ -24,6 +28,8 @@ export class MediaDbService {
   updateMedia(updateMediaArgs: UpdateOneMediaArgs) {
     return this.prisma.media.update(updateMediaArgs)
   }
+
+
 
 
   createTags(createTags: TagsCreateWithoutMediasInput) {
@@ -38,12 +44,12 @@ export class MediaDbService {
     return this.prisma.tags.findMany()
   }
 
-  findMediaTags(meiaId: number) {
+  findMediaTags(mediaId: number) {
     return this.prisma.tags.findMany({
       where: {
         medias: {
           some: {
-            id: meiaId
+            id: mediaId
           }
         }
       }

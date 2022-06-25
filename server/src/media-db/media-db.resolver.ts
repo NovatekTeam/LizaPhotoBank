@@ -19,7 +19,7 @@ export class MediaResolver {
     return this.mediaDbService.findAllTags()
   }
 
-  @Mutation(() => Media)
+  @Mutation(() => Media, {name : 'MediaMutation'})
   updateMedia(@Args() mediaArgs: UpdateOneMediaArgs) {
     return this.mediaDbService.updateMedia(mediaArgs)
   }

@@ -1,4 +1,5 @@
 import { ObjectType, Field, ID, Int } from '@nestjs/graphql';
+import { Expose } from 'class-transformer';
 
 @ObjectType()
 export class SolrDocs {
@@ -14,8 +15,8 @@ export class SolrDocs {
     @Field(() => String, { description: 'Тип файла', nullable: true })
     media_type: string;
 
-    @Field(() => String, { description: 'Размер файла' , nullable: true})
-    media_size: string;
+    // @Field(() => String, { description: 'Размер файла' , nullable: true})
+    // media_size: string;
 
     @Field(() => String, { description: 'Заголовок' , nullable: true})
     title: string;
@@ -27,4 +28,10 @@ export class SolrDocs {
     _version_: number;
 
 }
+
+
+// export class SolrDocsToMedia {
+//     @Expose()
+//     media_name
+// }
 
