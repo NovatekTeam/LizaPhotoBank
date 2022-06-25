@@ -18,9 +18,9 @@ export class YdiskService {
     private solrService: SolrService,
     private mediaDbService: MediaDbService) { }
 
-  createCheckpoint() {
+  createCheckpoint(path: string) {
     const cp = new Date()
-    fs.writeFileSync('./tmp/checkpoint', cp.toISOString());
+    fs.writeFileSync(path, cp.toISOString());
     return cp
   }
 
@@ -28,16 +28,21 @@ export class YdiskService {
     return this.httpService.axiosRef.get<YDiskResource>(`https://cloud-api.yandex.net/v1/disk/public/resources`, { params: param })
   }
 
-  async syncFiles() {
+  async syncFiles(syncPath: string) {
     let cp: Date = null
+    const cpPath = `./tmp/${syncPath.replace('/','')}.lock`
+    console.log(cpPath)
     try {
-      cp = new Date(fs.readFileSync('./tmp/checkpoint', 'utf8'));
+      cp = new Date(fs.readFileSync(cpPath, 'utf8'));
     } catch (error) {
-      cp = this.createCheckpoint()
+      cp = this.createCheckpoint(cpPath)
     }
-    let yparam = { public_key: "https://disk.yandex.ru/d/L80wUZQrcBDVIQ", limit: 0, offset: 0, path: '/dataset' }
+   
+    let yparam = { public_key: "https://disk.yandex.ru/d/L80wUZQrcBDVIQ", limit: 0, offset: 0, path: syncPath }
     const totalRes = await this.fetchFromYdisk(yparam)
-    yparam.limit = 50
+
+    yparam.limit = 500
+    yparam['sort'] = 'modified asc'
 
     const pages = Math.floor(totalRes.data._embedded.total / yparam.limit)
   
@@ -76,7 +81,7 @@ export class YdiskService {
 
 
 
-
+    this.createCheckpoint(cpPath)
     return `Files synced`
   }
 

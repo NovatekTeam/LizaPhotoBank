@@ -8,8 +8,8 @@ export class YdiskResolver {
 
  
   @Query(() => String, { name: 'syncFiles' })
-  async syncFiles() {
-    return this.ydiskService.syncFiles();
+  async syncFiles(@Args('path', { type: () => String }) path: string) {
+    return this.ydiskService.syncFiles(path);
     
   }
 
