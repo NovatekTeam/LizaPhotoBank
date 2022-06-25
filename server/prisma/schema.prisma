@@ -13,12 +13,14 @@ datasource db {
 }
 
 model Media {
-  id         Int    @id @default(autoincrement())
-  mediaName String @db.VarChar(64)
-  mediaPath String @db.VarChar(128)
-  mediaSize Int
-  mediaType String @db.VarChar(32)
-  tags       Tags[]
+  id              Int    @id @default(autoincrement())
+  mediaName       String? @db.VarChar(64)
+  mediaPath       String? @db.VarChar(128)
+  mediaSize       Int?
+  mediaType       String? @db.VarChar(32)
+  mediaPreviewUrl String? @db.VarChar(512)
+  title           String? @db.VarChar(512)
+  tags            Tags[]
 }
 
 model Tags {
