@@ -32,5 +32,5 @@ docker-compose up -d
 ├── server                              <- Серверная часть
 ├── wsgi                                <- Взаимодействие с Python-скриптами
 ├── yolov5                              <- Обучение модели детектирования объектов YOLOv5
-├── docker-compose.yml                  <- Конфигурации контейнеров для поднятия инфраструктуры (PostgreSQL, React.js, node.js, WSGI, CVAT)
+└── docker-compose.yml                  <- Конфигурации контейнеров для поднятия инфраструктуры (PostgreSQL, React.js, node.js, WSGI, CVAT)
 ```
