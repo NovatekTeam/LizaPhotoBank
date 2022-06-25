@@ -2,12 +2,12 @@ import React from "react";
 import {Tree} from "antd";
 import {usefilterTree} from "./__generated__/filterTree";
 
-export const TagsFilter = () => {
+export const TagsFilter = (props: {select: (selectedKeys: string[]) => void}) => {
 
     const { data, loading, error } = usefilterTree();
 
     let tagGroup = data?.TagsQuery?.map(it => it.tagGroup);
-    let distinctTagGroup = tagGroup?.filter((it , pos) => tagGroup.indexOf(it)== pos)?.sort();
+    let distinctTagGroup = tagGroup?.filter((it , pos) => tagGroup.indexOf(it) == pos)?.sort();
 
     function findTagByGroup(group: string) {
         let map = data?.TagsQuery?.filter(it => it.tagGroup === group).map(it => ({
@@ -32,6 +32,7 @@ export const TagsFilter = () => {
     };
 
     const onCheck = (checkedKeys, info) => {
+        props.select(checkedKeys)
         console.log('onCheck', checkedKeys, info);
     };
 
@@ -39,6 +40,7 @@ export const TagsFilter = () => {
     console.log(treeData)
     return (
         <div style={{width: '15%', padding: "12px", minWidth:"200px"}}>
+            <img src={"https://lizaalert.org/wp-content/uploads/2018/10/ll5-122x51.png"} alt={"logo"}/>
             <h2 style={{textAlign: "left", padding: "12px"}}>Фильтры:</h2>
             <Tree
                 checkable

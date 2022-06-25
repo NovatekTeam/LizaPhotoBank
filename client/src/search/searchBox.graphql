@@ -1,0 +1,20 @@
+# Write your query or mutation here
+query searchBox ($query : String, $page: Int) {
+    SolrQuery(params: {q: $query, start: $page}) {
+        response{
+            numFoundExact
+            numFound,
+            start,
+            docs{
+                id,
+                title,
+                media_name,
+                media_path,
+                media_type,
+                media_tags,
+                media_preview_url,
+            },
+        },
+
+    }
+}

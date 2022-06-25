@@ -1,161 +1,213 @@
-# This file was generated based on ".graphqlconfig". Do not edit manually.
-
-schema {
-    query: Query
-    mutation: Mutation
-}
-
 type Media {
-    id: ID!
-    mediaName: String!
-    mediaPath: String!
-    mediaSize: Int!
-    mediaType: String!
-    tags: [Tags!]!
-}
-
-type Mutation {
-    putSolrDocs(solrDocs: [PutSolrDocsInput!]!): solrInputResponse!
-    updateMedia(data: MediaUpdateInput!, where: MediaWhereUniqueInput!): Media!
-}
-
-type Query {
-    MediaQuery(args: MediaWhereUniqueInput!): Media!
-    SolrQuery(params: solrParamInput!): SolrPaginated!
-    TagsQuery: [Tags!]!
-    syncFiles: String!
-}
-
-type SolrDocs {
-    "Версия"
-    _version_: Int!
-    "ID документа"
-    id: ID!
-    "Имя файла"
-    media_name: String
-    "Путь до файла"
-    media_path: String
-    "Размер файла"
-    media_size: String
-    "Тэги"
-    media_tags: [String!]
-    "Тип файла"
-    media_type: String
-    "Заголовок"
-    title: String
-}
-
-type SolrPaginated {
-    "Ответ"
-    response: SolrResponse!
-    "Заголовок"
-    responseHeader: SolrResponseHeader!
-}
-
-type SolrResponse {
-    "Найденные документы"
-    docs: [SolrDocs!]
-    "Кол-во совпадений"
-    numFound: Int
-    "Точное совпадение"
-    numFoundExact: Boolean
-    start: Int
-}
-
-type SolrResponseHeader {
-    "Время ответа"
-    QTime: Int!
-    "Статус"
-    status: Int!
-}
-
-type Tags {
-    id: ID!
-    medias: [Media!]
-    tagCode: Int
-    tagDes: String!
-    tagGroup: String!
-    tagName: String!
-}
-
-type YDiskPaginated {
-    "Описание"
-    info: String!
-    "Элементы"
-    items: [YdiskItems!]!
-    "Ограничение"
-    limit: Int!
-    "Офсет"
-    offset: Int!
-    "Путь на диске"
-    path: String!
-    "Сортировка"
-    sort: String!
-    "Всего файлов"
-    total: Int!
-}
-
-type YdiskItems {
-    "Ссылка для скачивания"
-    file: String!
-    "Тип файла"
-    media_type: String!
-    "Расширение файла"
-    mime_type: String!
-    "Имя файла"
-    name: String!
-    "Путь внутри яндекс диска"
-    path: String!
-    "Ссылка на превью файла"
-    preview: String!
-    "Размер файла"
-    size: Int!
-}
-
-type solrInputResponse {
-    "Заголовок"
-    responseHeader: SolrResponseHeader!
+  id: ID!
+  mediaName: String!
+  mediaPath: String!
+  mediaPreviewUrl: String!
+  mediaSize: Int!
+  mediaType: String!
+  tags: [Tags!]!
 }
 
 input MediaUpdateInput {
-    id: Int
-    mediaName: String
-    mediaPath: String
-    mediaSize: Int
-    mediaType: String
-    tags: TagsConnectedMediasInput
+  id: Int
+  mediaName: String
+  mediaPath: String
+  mediaPreviewUrl: String
+  mediaSize: Int
+  mediaType: String
+  tags: TagsConnectedMediasInput
 }
 
 input MediaWhereUniqueInput {
-    id: Int
+  id: Int
 }
 
-input PutSolrDocsInput {
-    "ID документа"
-    id: ID!
-    "Имя файла"
-    media_name: String
-    "Путь до файла"
-    media_path: String
-    "Размер файла"
-    media_size: String
-    "Тэги"
-    media_tags: [String!]
-    "Тип файла"
-    media_type: String
-    "Заголовок"
-    title: String
+type Mutation {
+  MediaMutation(data: MediaUpdateInput!, where: MediaWhereUniqueInput!): Media!
+  solrMediaMutation(solrDoc: SolrDocsInput!): solrInputResponse!
+}
+
+type Query {
+  MediaQuery(args: MediaWhereUniqueInput!): Media!
+  SolrQuery(params: solrParamInput!): SolrPaginated!
+  TagsQuery: [Tags!]!
+  syncFiles: String!
+}
+
+type SolrDocs {
+  """Версия"""
+  _version_: Int!
+
+  """ID документа"""
+  id: ID!
+
+  """Имя файла"""
+  media_name: String
+
+  """Путь до файла"""
+  media_path: String
+
+  """Url превью"""
+  media_preview_url: String
+
+  """Тэги"""
+  media_tags: [String!]
+
+  """Тип файла"""
+  media_type: String
+
+  """Комментарии"""
+  title: String
+}
+
+input SolrDocsInput {
+  """ID документа"""
+  id: ID!
+
+  """Имя файла"""
+  media_name: String
+
+  """Путь до файла"""
+  media_path: String
+
+  """Превью документа"""
+  media_preview_url: String
+
+  """Размер файла"""
+  media_size: Int
+
+  """Тэги"""
+  media_tags: [String!]
+
+  """Тип файла"""
+  media_type: String
+
+  """Заголовок"""
+  title: String
+}
+
+type SolrFacets {
+  """Поля фасетов"""
+  facet_fields: SolrFacetsFields!
+}
+
+type SolrFacetsFields {
+  media_name: [String!]
+  media_path: [String!]
+  media_size: [String!]
+  media_tags: [String!]
+  media_type: [String!]
+  title: [String!]
+}
+
+type SolrPaginated {
+  """Фасеты"""
+  facet_counts: SolrFacets!
+
+  """Ответ"""
+  response: SolrResponse!
+
+  """Заголовок"""
+  responseHeader: SolrResponseHeader!
+}
+
+type SolrResponse {
+  """Найденные документы"""
+  docs: [SolrDocs!]
+
+  """Кол-во совпадений"""
+  numFound: Int
+
+  """Точное совпадение"""
+  numFoundExact: Boolean
+  start: Int
+}
+
+type SolrResponseHeader {
+  """Время ответа"""
+  QTime: Int!
+
+  """Статус"""
+  status: Int!
+}
+
+type Tags {
+  _count: TagsCount!
+  id: ID!
+  medias: [Media!]
+  tagCode: Int
+  tagDes: String!
+  tagGroup: String!
+  tagName: String!
 }
 
 input TagsConnectedMediasInput {
-    connect: [TagsWhereUniqueInput!]
+  connect: [TagsWhereUniqueInput!]
+}
+
+type TagsCount {
+  medias: Int!
 }
 
 input TagsWhereUniqueInput {
-    id: Int
+  id: Int
+}
+
+type YDiskPaginated {
+  """Описание"""
+  info: String!
+
+  """Элементы"""
+  items: [YdiskItems!]!
+
+  """Ограничение"""
+  limit: Int!
+
+  """Офсет"""
+  offset: Int!
+
+  """Путь на диске"""
+  path: String!
+
+  """Сортировка"""
+  sort: String!
+
+  """Всего файлов"""
+  total: Int!
+}
+
+type YdiskItems {
+  """Ссылка для скачивания"""
+  file: String!
+
+  """Тип файла"""
+  media_type: String!
+
+  """Расширение файла"""
+  mime_type: String!
+
+  """Дата изменения"""
+  modified: String!
+
+  """Имя файла"""
+  name: String!
+
+  """Путь внутри яндекс диска"""
+  path: String!
+
+  """Ссылка на превью файла"""
+  preview: String!
+
+  """Размер файла"""
+  size: Int!
+}
+
+type solrInputResponse {
+  """Заголовок"""
+  responseHeader: SolrResponseHeader!
 }
 
 input solrParamInput {
-    q: String
-    start: Int
+  q: String
+  start: Int
 }

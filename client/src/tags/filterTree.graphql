@@ -1,6 +1,10 @@
 query filterTree {
     TagsQuery {
         tagGroup,
-        tagName
+        tagName,
+        _count {
+            medias
+        }
     }
 }
+

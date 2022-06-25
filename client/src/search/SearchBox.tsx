@@ -1,12 +1,19 @@
 import Search from "antd/lib/input/Search";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {FileTable} from "../table/FileTable";
 
-export const SearchBox = () => {
+export const SearchBox = (props: {tagFilter: string[]}) => {
 
-    function onSearch() {
-        console.log("search")
+    const [searchText, setSearchText] = useState('')
+    const [tagFilter, setTagFilter] = useState([])
+
+    function onSearch(value: string) {
+        setSearchText(value);
     }
+
+    useEffect(() => {
+        setTagFilter(props.tagFilter);
+    }, [props.tagFilter])
 
     return (
         <div style={{width: "100%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems:"center", alignSelf: "center"}}>
@@ -18,7 +25,7 @@ export const SearchBox = () => {
                 size="large"
                 onSearch={onSearch}
             />
-            <FileTable/>
+            <FileTable searchText={searchText} tagFilter={tagFilter} />
         </div>
     )
 };

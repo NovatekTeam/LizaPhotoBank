@@ -1,8 +1,14 @@
 import React from "react";
 import ReactWordcloud, {Word} from "react-wordcloud";
-import {words} from "./TagsExample";
+import {usefilterTree} from "./__generated__/filterTree";
 
 export const TagsCloud = () => {
+
+    const filter = usefilterTree();
+    let words = filter?.data?.TagsQuery?.map(it => ({
+        text: it?.tagName,
+        value: it?._count?.medias
+    }));
 
     const callbacks = {
         getWordColor: (word: Word) => (word.value > 50 ? "orange" : "purple"),
