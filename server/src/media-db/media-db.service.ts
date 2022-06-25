@@ -29,7 +29,20 @@ export class MediaDbService {
     return this.prisma.media.update(updateMediaArgs)
   }
 
+  allMediasWithTags(){
+    return this.prisma.media.findMany({
+      select : {
+        id: true,
+        tags : {
+          select : {
+            tagName : true
+          }
+        }      
+      }
+    })
+  }
 
+  
 
 
   createTags(createTags: TagsCreateWithoutMediasInput) {

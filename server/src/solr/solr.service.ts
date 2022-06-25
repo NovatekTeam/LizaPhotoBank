@@ -11,6 +11,7 @@ import { MediaCreateInput } from 'src/media-db/entities/media/dto/create-media.i
 import { MediaUpdateInput } from 'src/media-db/entities/media/dto/update-media.input';
 import { MediaDbService } from 'src/media-db/media-db.service';
 import { UpdateOneMediaArgs } from 'src/media-db/entities/media/dto/update-one-media.args';
+import { prisma } from '@prisma/client';
 
 
 @Injectable()
@@ -33,6 +34,26 @@ export class SolrService {
         res.data
       )
     )
+  }
+
+  async syncSolrMediaTags(){
+    const docs = []
+    const res = await this.mediaDbService.allMediasWithTags()
+    
+
+    res.forEach(item => {
+      docs.push({ id : item.id, media_tags: {set : Object.values(item.tags.map(tag => tag.tagName))}})
+    })
+
+    
+    await this.httpService.axiosRef.post(`${this.sConfig.url}${this.sConfig.core}/update?commit=true`, JSON.stringify(docs), {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    return 'Success'
+    
   }
 
 
