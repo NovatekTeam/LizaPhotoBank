@@ -1,0 +1,14 @@
+mutation updateDb($mediaId : Int, $tagsId: [TagsWhereUniqueInput!]) {
+    MediaMutation(where: {id: $mediaId},
+        data: {
+            tags: {
+                connect: $tagsId
+            }
+        }){
+        id,
+        tags {
+            tagName
+        }
+    }
+}
+

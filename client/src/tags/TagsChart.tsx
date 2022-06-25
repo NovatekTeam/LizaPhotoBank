@@ -17,18 +17,7 @@ export const TagsChart = () => {
     const filter = usefilterTree();
 
     let tagsQuery = filter?.data?.TagsQuery;
-    let mediasMap = tagsQuery?.map(it => it?._count.medias);
-    let distinctTagGroup = mediasMap?.filter((it , pos) => mediasMap.indexOf(it) == pos);
-    console.log("distinctTagGroup " + distinctTagGroup)
-    if (distinctTagGroup && distinctTagGroup.length > 2) {
-        tagsQuery = tagsQuery?.sort((a, b) =>{
-            let mediaB = b?._count?.medias;
-            let mediaA = a?._count?.medias;
-            if (mediaA && mediaB && a !== b) return mediaB - mediaA;
-            return 0
-        })
-    }
-    let topTags = tagsQuery?.slice(0, 10).map(it => ({
+    let topTags = tagsQuery?.map(it => ({
         название: it?.tagName,
         количество: it?._count?.medias
     }));

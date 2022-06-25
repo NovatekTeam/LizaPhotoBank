@@ -1,0 +1,10 @@
+mutation updateSolr($mediaId : ID!, $tags: [String!]) {
+    solrMediaMutation(solrDoc: {
+        id: $mediaId,
+        media_tags: $tags
+    }) {
+        responseHeader {
+            status
+        }
+    }
+}

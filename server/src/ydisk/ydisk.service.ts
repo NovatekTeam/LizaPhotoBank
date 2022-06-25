@@ -38,11 +38,11 @@ export class YdiskService {
       cp = this.createCheckpoint(cpPath)
     }
    
-    let yparam = { public_key: "https://disk.yandex.ru/d/L80wUZQrcBDVIQ", limit: 0, offset: 0, path: syncPath }
+    let yparam = { public_key: "https://disk.yandex.ru/d/L80wUZQrcBDVIQ", limit: 0, offset: 0, path: syncPath, preview_size: 'XL' }
     const totalRes = await this.fetchFromYdisk(yparam)
 
     yparam.limit = 500
-    yparam['sort'] = 'modified asc'
+    //yparam['sort'] = 'modified asc'
 
     const pages = Math.floor(totalRes.data._embedded.total / yparam.limit)
   
