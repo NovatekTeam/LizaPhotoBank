@@ -17,6 +17,11 @@ export class SolrResolver {
     return this.solrService.findByDefault(params);
   }
 
+  @Query(() => String, { name: 'syncSolrWDb' })
+  async syncSolrWDb() {
+    return this.solrService.syncSolrMediaTags();
+  }
+
   @Mutation(() => solrInputResponse,  { name: 'solrMediaMutation' })
   async updateMediaDocs(@Args('solrDoc', { type: () => SolrDocsInput }) solrDoc: SolrDocsInput) {
     return this.solrService.updateSolrDocs(solrDoc);
