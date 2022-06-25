@@ -1,6 +1,7 @@
 import { Field, InputType, Int } from "@nestjs/graphql";
 import { Type } from "class-transformer";
 import { TagsCreateWithoutMediasInput } from "../../tags/dto/create-tags.input";
+import { TagsConnectedMediasInput } from "./connect-tags-media.input";
 
 
 @InputType()
@@ -22,7 +23,7 @@ export class MediaCreateInput {
     @Type(() => String)
     mediaType!: string;
 
-    @Field(() => [TagsCreateWithoutMediasInput], {nullable:true})
-    @Type(() => TagsCreateWithoutMediasInput)
-    tags?: Array<TagsCreateWithoutMediasInput>;
+    @Field(() => TagsConnectedMediasInput, {nullable:true})
+    @Type(() => TagsConnectedMediasInput)
+    tags?: TagsConnectedMediasInput;
 }

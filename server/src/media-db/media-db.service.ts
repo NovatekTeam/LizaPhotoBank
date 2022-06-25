@@ -11,34 +11,43 @@ import { UpdateOneTagsArgs } from './entities/tags/dto/update-one-tags.args';
 @Injectable()
 export class MediaDbService {
   constructor(
-    private prisma: PrismaService){}
+    private prisma: PrismaService) { }
 
   createMedia(createMedia: MediaCreateInput) {
-    return this.prisma.media.create({data : createMedia})
+    return this.prisma.media.create({ data: createMedia })
   }
 
-  findMedia(args: MediaWhereUniqueInput){
-        return this.prisma.media.findUnique({where: args})
+  findMediaById(args: MediaWhereUniqueInput) {
+    return this.prisma.media.findUnique({ where: args })
   }
 
-  updateMedia(updateMediaArgs: UpdateOneMediaArgs){
+  updateMedia(updateMediaArgs: UpdateOneMediaArgs) {
     return this.prisma.media.update(updateMediaArgs)
   }
 
-  createTags(createTags: TagsCreateWithoutMediasInput){
-    return this.prisma.tags.create({data: createTags})
+
+  createTags(createTags: TagsCreateWithoutMediasInput) {
+    return this.prisma.tags.create({ data: createTags })
   }
 
-  updateTags(updateTags: UpdateOneTagsArgs){
+  updateTags(updateTags: UpdateOneTagsArgs) {
     return this.prisma.tags.update(updateTags)
   }
 
-  findMediaTags(meiaId : number){
-    return this.prisma.tags.findMany({where : {medias : {
-      some : {
-        id : meiaId
+  findAllTags() {
+    return this.prisma.tags.findMany()
+  }
+
+  findMediaTags(meiaId: number) {
+    return this.prisma.tags.findMany({
+      where: {
+        medias: {
+          some: {
+            id: meiaId
+          }
+        }
       }
-    }}})
+    })
   }
 
 }

@@ -11,7 +11,12 @@ export class MediaResolver {
 
   @Query(() => Media, { name: 'MediaQuery' })
   findMedia(@Args('args', { type: () => MediaWhereUniqueInput }) args: MediaWhereUniqueInput) {
-    return this.mediaDbService.findMedia(args)
+    return this.mediaDbService.findMediaById(args)
+  }
+
+  @Query(() => [Tags], { name: 'TagsQuery' })
+  findAllTags() {
+    return this.mediaDbService.findAllTags()
   }
 
   @Mutation(() => Media)
