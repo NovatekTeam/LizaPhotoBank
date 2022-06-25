@@ -64,7 +64,7 @@ export class YdiskService {
           solrDoc.media_path = item.path
           solrDoc.media_size = item.size
           solrDoc.media_type = item.media_type
-          solrDoc.media_preview_url = item.preview
+          solrDoc.media_preview_url = `http://novateam.ddns.net:3333/${item.name}`
           const media = plainToInstance(MediaCreateInput, solrDoc)
           const returnMedia = await this.mediaDbService.createMedia(media)
           solrDoc.id = returnMedia.id
