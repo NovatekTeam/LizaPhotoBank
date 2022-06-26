@@ -7,10 +7,23 @@ import {usesearchBox} from "../search/__generated__/searchBox";
 export const FileTable = (props: {searchText: string, tagFilter: string[]}) => {
 
     function getQuery() {
-        let tags = props.tagFilter.join(' ');
-        return props.searchText && props.searchText.length > 0 ? props.searchText + " " + tags : tags.length > 0 ? tags : '*';
+        let tags = props.tagFilter.join(' AND ');
+        if (props.searchText && props.searchText.length > 0) {
+            if (tags.length > 0) {
+                return '*' + props.searchText + '*' + " AND " + tags
+            } else {
+                return '*' + props.searchText + '*';
+            }
+        } else {
+            if (tags.length > 0) {
+                return tags;
+            } else {
+                return '*'
+            }
+        }
     }
 
+    console.log("query = " + getQuery());
     const { data, loading, error, refetch } = usesearchBox({variables: {
             query: getQuery(),
             page: 0
@@ -26,6 +39,7 @@ export const FileTable = (props: {searchText: string, tagFilter: string[]}) => {
     });
 
     useEffect(() => {
+        console.log("query from state = " + getQuery());
         refetch({query : getQuery(), page: 0}).then(value => {
             setDataResponse(value.data.SolrQuery.response);
             setPagination({
