@@ -27,6 +27,8 @@ services:
       - ${HOST_SERVER_PORT}:${SERVER_PORT}
     depends_on:
       - pg-liza-alert
+    volumes:
+      - ./temp_server:/tmp
 
   wsgi-liza-alert:
       container_name: wsgi-liza-alert
@@ -67,21 +69,6 @@ services:
     container_name: cvat_redis
     image: redis:4.0-alpine
     restart: always
-    networks:
-      - cvat
-
-  cvat_db:
-    container_name: cvat_db
-    image: postgres:10-alpine
-    restart: always
-    environment:
-      POSTGRES_USER: root
-      POSTGRES_DB: cvat
-      POSTGRES_HOST_AUTH_METHOD: trust
-    volumes:
-      - cvat_db:/var/lib/postgresql/data
-    networks:
-      - cvat
 
   cvat:
     container_name: cvat
@@ -96,6 +83,9 @@ services:
       ALLOWED_HOSTS: '*'
       CVAT_REDIS_HOST: 'cvat_redis'
       CVAT_POSTGRES_HOST: 'cvat_db'
+      CVAT_POSTGRES_DBNAME: ${POSTGRES_DB}
+      CVAT_POSTGRES_USER: ${POSTGRES_USER}
+      CVAT_POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       ADAPTIVE_AUTO_ANNOTATION: 'false'
       no_proxy: elasticsearch,kibana,logstash,nuclio,opa,${no_proxy}
     labels:
@@ -108,8 +98,6 @@ services:
       - cvat_data:/home/django/data
       - cvat_keys:/home/django/keys
       - cvat_logs:/home/django/logs
-    networks:
-      - cvat
 
   cvat_ui:
     container_name: cvat_ui
@@ -122,8 +110,6 @@ services:
       - traefik.http.services.cvat-ui.loadbalancer.server.port=80
       - traefik.http.routers.cvat-ui.rule=Host(`${CVAT_HOST:-localhost}`)
       - traefik.http.routers.cvat-ui.entrypoints=web
-    networks:
-      - cvat
 
   traefik:
     image: traefik:v2.4
@@ -134,21 +120,11 @@ services:
       - '--providers.docker.network=cvat'
       - '--entryPoints.web.address=:8080'
       - '--providers.file.directory=/etc/traefik/rules'
-    # Uncomment to get Traefik dashboard
-    #   - "--entryPoints.dashboard.address=:8090"
-    #   - "--api.dashboard=true"
-    # labels:
-    #   - traefik.enable=true
-    #   - traefik.http.routers.dashboard.entrypoints=dashboard
-    #   - traefik.http.routers.dashboard.service=api@internal
-    #   - traefik.http.routers.dashboard.rule=Host(`${CVAT_HOST:-localhost}`)
     ports:
       - 8080:8080
       - 8090:8090
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-    networks:
-      - cvat
 
   cvat_opa:
     container_name: cvat_opa
@@ -169,6 +145,3 @@ volumes:
   cvat_data:
   cvat_keys:
   cvat_logs:
-
-networks:
-  cvat:

@@ -5,3 +5,4 @@ models
 lightning_logs
 logs
 *.pt
+temp_server/
