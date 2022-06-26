@@ -17,11 +17,15 @@ export const ButtonPanel : React.FC = () => {
     }
 
 
+    function handleAuto() {
+
+    }
+
     return (
         <Fragment>
-            <Button type="primary" style={{margin: 35}} onClick={()=>{syncYdisk}}>Синхронизация с облаком</Button>
-            <Button type="primary" style={{margin: 35}} onClick={()=>{syncDb}}>Синхронизация с индексом</Button>
-            <Button type="primary" style={{margin: 35}} onClick={()=>{}}>Авто разметка</Button>
+            <Button type="primary" style={{margin: 16}} onClick={syncYdisk}>Синхронизация с облаком</Button>
+            <Button type="primary" style={{margin: 16}} onClick={syncDb}>Синхронизация с индексом</Button>
+            <Button type="primary" style={{margin: 16}} onClick={handleAuto}>Авто разметка</Button>
         </Fragment>
     )
 }
