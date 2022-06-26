@@ -45,7 +45,7 @@ module.exports = {
       path: '.env'
     }),
     new ModuleFederationPlugin({
-      name: "client",
+      name: "LizaAlert",
       filename: "remoteEntry.js",
       remotes: {},
       exposes: {},

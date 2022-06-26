@@ -31,7 +31,8 @@ type Query {
   MediaQuery(args: MediaWhereUniqueInput!): Media!
   SolrQuery(params: solrParamInput!): SolrPaginated!
   TagsQuery: [Tags!]!
-  syncFiles: String!
+  syncFiles(path: String!): String!
+  syncSolrWDb: String!
 }
 
 type SolrDocs {

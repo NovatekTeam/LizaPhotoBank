@@ -7,6 +7,7 @@ import "./index.css";
 import {TagsFilter} from "./tags/TagsFilter";
 import {StatisticBox} from "./main/StatisticBox";
 import {SearchBox} from "./search/SearchBox";
+import { ButtonPanel } from "./buttonsPanel/buttonPanel";
 
 console.log(GRAPHQL_SERVER)
 
@@ -21,7 +22,10 @@ const App = () => {
 
     return (
         <div style={{display: 'flex'}}>
+            <div style={{display: 'flex', flexDirection : 'column'}}>
             <TagsFilter select={selectedKeys => setTagFilter(selectedKeys) } />
+            <ButtonPanel/>
+            </div>
             <div style={{width: "100%"}}>
                 <StatisticBox/>
                 <SearchBox tagFilter={tagFilter}/>
