@@ -29,7 +29,7 @@ export const FileTable = (props: {searchText: string, tagFilter: string[]}) => {
             page: 0
         }});
 
-    const [dataResponse, setDataResponse] = useState(data?.SolrQuery?.response)
+    const [docs, setDocs] = useState(data?.SolrQuery?.response?.docs)
     const [searchText, setSearchText] = useState('')
 
     const [pagination, setPagination] = useState({
@@ -41,7 +41,7 @@ export const FileTable = (props: {searchText: string, tagFilter: string[]}) => {
     useEffect(() => {
         console.log("query from state = " + getQuery());
         refetch({query : getQuery(), page: 0}).then(value => {
-            setDataResponse(value.data.SolrQuery.response);
+            setDocs(value.data.SolrQuery.response?.docs)
             setPagination({
                 ...pagination,
                 current: 1,
@@ -70,6 +70,7 @@ export const FileTable = (props: {searchText: string, tagFilter: string[]}) => {
             title: 'Тэги',
             key: 'media_tags',
             dataIndex: 'media_tags',
+            editable: true,
             render: (media_tags) => (
                 <span>
         {media_tags?.map((tag) => {
@@ -103,9 +104,8 @@ export const FileTable = (props: {searchText: string, tagFilter: string[]}) => {
     ];
 
     const handleTableChange = (newPagination, filters, sorter) => {
-        console.log("newPagination.current"  + newPagination.current + " newPagination.pageSize " + newPagination.pageSize)
         refetch({query : searchText && searchText.length > 0 ? searchText : '*', page: (newPagination.current - 1) * newPagination.pageSize}).then(value => {
-            setDataResponse(value.data.SolrQuery.response);
+            setDocs(value.data.SolrQuery.response.docs);
             setPagination({
                 ...newPagination,
                 total: value.data.SolrQuery.response.numFound
@@ -119,10 +119,22 @@ export const FileTable = (props: {searchText: string, tagFilter: string[]}) => {
                 style={{width: "100%"}}
                 columns={columns}
                 pagination={pagination}
-                dataSource={dataResponse?.docs}
+                dataSource={docs}
                 onChange={handleTableChange}
             />
             <FileEditor selectedRow={selectedRow} onClose={(selectedTags) => {
+               let newDocs = [];
+               docs.forEach(it => {
+                   if (it.id !== selectedRow.id) {
+                       newDocs.push(it)
+                   } else {
+                       newDocs.push({
+                           ...selectedRow,
+                           media_tags: selectedTags
+                       })
+                   }
+               });
+               setDocs(newDocs);
                setSelectedRow(null);
             }}   />
         </div>
