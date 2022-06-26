@@ -21,8 +21,8 @@ export const TagsChart = () => {
         название: it?.tagName,
         количество_фото: it?._count?.medias
     })).sort((a, b) => {
-        return a?.название?.localeCompare(b?.название)
-    });
+        return b?.количество_фото - a?.количество_фото
+    }).filter(it => it?.количество_фото > 0).slice(0, 10);
 
     return (
         <div style={{height: 300, width: 300}}>
