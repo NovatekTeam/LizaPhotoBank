@@ -19,8 +19,10 @@ export const TagsChart = () => {
     let tagsQuery = filter?.data?.TagsQuery;
     let topTags = tagsQuery?.map(it => ({
         название: it?.tagName,
-        количество: it?._count?.medias
-    }));
+        количество_фото: it?._count?.medias
+    })).sort((a, b) => {
+        return a?.название?.localeCompare(b?.название)
+    });
 
     return (
         <div style={{height: 300, width: 300}}>
@@ -28,19 +30,13 @@ export const TagsChart = () => {
                 <ComposedChart
                     layout="vertical"
                     data={topTags}
-                    margin={{
-                        top: 20,
-                        right: 20,
-                        bottom: 20,
-                        left: 20,
-                    }}
                 >
                     <CartesianGrid stroke="#f5f5f5" />
                     <XAxis type="number" />
                     <YAxis dataKey="название" type="category" />
                     <Tooltip />
                     <Legend />
-                    <Bar dataKey="количество" barSize={20} fill="orange" />
+                    <Bar dataKey="количество_фото" barSize={20} fill="orange" />
                 </ComposedChart>
             </ResponsiveContainer>
         </div>
