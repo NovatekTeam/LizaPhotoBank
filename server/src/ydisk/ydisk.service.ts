@@ -55,7 +55,7 @@ export class YdiskService {
       const res = await this.fetchFromYdisk(yparam)
       const docs = res.data._embedded.items.filter(item => !medias.find(it => it.mediaName === item.name))
       //const docs = res.data._embedded.items.filter(item => new Date(item.modified) > cp)
-      if (docs.length === 0) return 'Nothing to sync';
+      if (docs.length === 0) continue
       docs.forEach(async (item) => {
         const writer = createWriteStream(`./tmp/${item.name}`)
         const response = await this.httpService.axiosRef.get<Stream>(item.file, { responseType: 'stream' })
