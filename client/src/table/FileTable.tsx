@@ -30,6 +30,7 @@ export const FileTable = (props: {searchText: string, tagFilter: string[]}) => {
             setDataResponse(value.data.SolrQuery.response);
             setPagination({
                 ...pagination,
+                current: 1,
                 total: value.data.SolrQuery.response.numFound
             });
         })
@@ -40,7 +41,7 @@ export const FileTable = (props: {searchText: string, tagFilter: string[]}) => {
 
     function popupImage(preview: string) {
         return (
-            <img src={preview} alt={preview}/>
+            <img style={{maxHeight: 480, maxWidth: 640}} src={preview} alt={preview}/>
         )
     }
 
@@ -88,7 +89,8 @@ export const FileTable = (props: {searchText: string, tagFilter: string[]}) => {
     ];
 
     const handleTableChange = (newPagination, filters, sorter) => {
-        refetch({query : searchText && searchText.length > 0 ? searchText : '*', page: newPagination.current - 1}).then(value => {
+        console.log("newPagination.current"  + newPagination.current + " newPagination.pageSize " + newPagination.pageSize)
+        refetch({query : searchText && searchText.length > 0 ? searchText : '*', page: (newPagination.current - 1) * newPagination.pageSize}).then(value => {
             setDataResponse(value.data.SolrQuery.response);
             setPagination({
                 ...newPagination,
@@ -106,7 +108,9 @@ export const FileTable = (props: {searchText: string, tagFilter: string[]}) => {
                 dataSource={dataResponse?.docs}
                 onChange={handleTableChange}
             />
-            <FileEditor selectedRow={selectedRow} onClose={() => setSelectedRow(null)}   />
+            <FileEditor selectedRow={selectedRow} onClose={(selectedTags) => {
+               setSelectedRow(null);
+            }}   />
         </div>
     )
 }
