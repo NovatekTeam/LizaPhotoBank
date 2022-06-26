@@ -28,6 +28,8 @@ export class YdiskService {
     return this.httpService.axiosRef.get<YDiskResource>(`https://cloud-api.yandex.net/v1/disk/public/resources`, { params: param })
   }
 
+
+
   async syncFiles(syncPath: string) {
     let cp: Date = null
     const cpPath = `./tmp/${syncPath.replace('/','')}.lock`
@@ -44,13 +46,15 @@ export class YdiskService {
     yparam.limit = 500
     //yparam['sort'] = 'modified asc'
 
-    const pages = Math.floor(totalRes.data._embedded.total / yparam.limit)
-  
+    const pages = Math.ceil(totalRes.data._embedded.total / yparam.limit)
 
-    for (let page = 0; page <= Math.max(pages-1,0); page++){   
+    const medias = await this.mediaDbService.allMediasWithTags()
+
+    for (let page = 0; page <= pages; page++){   
       yparam.offset = yparam.limit * page
       const res = await this.fetchFromYdisk(yparam)
-      const docs = res.data._embedded.items.filter(item => new Date(item.modified) > cp)
+      const docs = res.data._embedded.items.filter(item => !medias.find(it => it.mediaName === item.name))
+      //const docs = res.data._embedded.items.filter(item => new Date(item.modified) > cp)
       if (docs.length === 0) return 'Nothing to sync';
       docs.forEach(async (item) => {
         const writer = createWriteStream(`./tmp/${item.name}`)
