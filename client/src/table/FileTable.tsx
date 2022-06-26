@@ -41,7 +41,7 @@ export const FileTable = (props: {searchText: string, tagFilter: string[]}) => {
 
     function popupImage(preview: string) {
         return (
-            <img src={preview} alt={preview}/>
+            <img style={{maxHeight: 480, maxWidth: 640}} src={preview} alt={preview}/>
         )
     }
 

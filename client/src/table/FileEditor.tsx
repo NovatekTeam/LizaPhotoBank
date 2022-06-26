@@ -36,7 +36,7 @@ export const FileEditor = (props: {selectedRow: {
 
     function popupImage(preview: string) {
         return (
-            <img src={preview} alt={preview}/>
+            <img style={{maxWidth: 640, maxHeight:480}} src={preview} alt={preview}/>
         )
     }
 
