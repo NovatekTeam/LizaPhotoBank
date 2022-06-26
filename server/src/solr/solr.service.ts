@@ -36,13 +36,17 @@ export class SolrService {
     )
   }
 
-  async syncSolrMediaTags(){
+  async syncSolrMedia(){
     const docs = []
     const res = await this.mediaDbService.allMediasWithTags()
     
 
     res.forEach(item => {
-      docs.push({ id : item.id, media_tags: {set : Object.values(item.tags.map(tag => tag.tagName))}})
+      docs.push({ 
+        id : item.id,
+        media_tags: {set : Object.values(item.tags.map(tag => tag.tagName))},
+        media_preview_url: {set : item.mediaPreviewUrl}
+      })
     })
 
     
