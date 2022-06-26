@@ -33,6 +33,7 @@ export class MediaDbService {
     return this.prisma.media.findMany({
       select : {
         id: true,
+        mediaName: true,
         mediaPreviewUrl: true,
         tags : {
           select : {
