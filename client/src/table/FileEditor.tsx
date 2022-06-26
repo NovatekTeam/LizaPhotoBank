@@ -16,7 +16,7 @@ export const FileEditor = (props: {selectedRow: {
         media_type: string,
         media_tags: [],
         media_preview_url: string
-    }, onClose: () => void}) => {
+    }, onClose: (tags: string[]) => void}) => {
 
     let [updateDb] = useupdateDb();
     let [updateSolr] = useupdateSolr()
@@ -64,12 +64,12 @@ export const FileEditor = (props: {selectedRow: {
                 tags: tags?.map(it => it.tagName)
             }
         })
-        props.onClose();
+        props.onClose(selectedTags);
     }
 
     return (
         <Modal title={selectedRow?.media_name} visible={selectedRow} onOk={handleSave} onCancel={() => {
-            props.onClose();
+            props.onClose(undefined);
         }} >
             <Popover content={() => popupImage(selectedRow?.media_preview_url)} title={selectedRow?.media_name}>
                 <img style={{marginBottom: 16}}  width={150} height={150} src={selectedRow?.media_preview_url} alt={selectedRow?.media_preview_url}/>
